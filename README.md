@@ -5,7 +5,7 @@
     <strong>Track your spending. Split trips. Settle smarter.</strong>
   </p>
 
-  <img src="./public/banner.jpg" alt="PaisaFlow Banner" width="800" />
+  <img src="./banner.jpg" alt="PaisaFlow Banner" width="800" />
 </div>
 
 <br />
