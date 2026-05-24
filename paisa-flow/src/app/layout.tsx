@@ -4,6 +4,7 @@ import { GeistMono } from "geist/font/mono";
 import { Toaster } from "sonner";
 import { ConvexClientProvider } from "./providers";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
@@ -51,6 +52,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-background text-text-primary">
         <ConvexClientProvider>
           {children}
+          <Analytics />
           <Toaster
             theme="light"
             position="bottom-center"
