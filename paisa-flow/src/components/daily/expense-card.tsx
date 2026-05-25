@@ -6,7 +6,6 @@ import { CategoryIcon } from "@/components/shared/category-icon";
 import { CATEGORIES, PAYMENT_MODES } from "@/lib/constants";
 import { getCategoryStyle } from "@/lib/category-config";
 import { Edit3, Trash2, RotateCcw } from "lucide-react";
-import { cardTapScale } from "@/lib/motion-presets";
 import type { Id } from "@/convex/_generated/dataModel";
 
 interface ExpenseCardProps {
@@ -40,32 +39,32 @@ export function ExpenseCard({
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, y: -12 }}
+      initial={{ opacity: 0, y: -8 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, height: 0, marginBottom: 0 }}
-      transition={{ duration: 0.25 }}
-      {...cardTapScale}
-      className="card-surface-elevated p-4 flex items-center gap-4 group"
+      transition={{ duration: 0.2 }}
+      whileTap={{ scale: 0.98 }}
+      className="pf-card p-4 flex items-center gap-3.5 group hover:shadow-lg transition-shadow"
     >
       <CategoryIcon category={expense.category} size="lg" />
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-semibold text-text-primary truncate">
+        <p className="text-[14px] font-semibold text-text-primary truncate font-heading">
           {expense.note || categoryLabel}
         </p>
-        <p className="text-caption text-text-muted mt-0.5">
+        <p className="text-[11px] text-text-muted mt-0.5 font-medium">
           {categoryLabel} · {paymentLabel}
           {expense.isRecurring && (
-            <span className="inline-flex items-center gap-0.5 ml-2 text-accent">
-              <RotateCcw size={10} /> Recurring
+            <span className="inline-flex items-center gap-0.5 ml-1.5 text-accent">
+              <RotateCcw size={9} /> Recurring
             </span>
           )}
         </p>
       </div>
-      <div className="flex items-center gap-2">
-        <span className="text-base font-mono-amount font-semibold text-text-primary">
+      <div className="flex items-center gap-2 flex-shrink-0">
+        <span className="text-[15px] font-mono font-bold text-text-primary">
           {formatMoney(expense.amount, currency)}
         </span>
-        <div className="flex gap-1 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
+        <div className="flex gap-0.5 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -74,7 +73,7 @@ export function ExpenseCard({
             className="p-2 rounded-lg hover:bg-surface-3 text-text-muted hover:text-accent transition-colors"
             aria-label="Edit"
           >
-            <Edit3 size={14} />
+            <Edit3 size={13} />
           </button>
           <button
             onClick={(e) => {
@@ -84,7 +83,7 @@ export function ExpenseCard({
             className="p-2 rounded-lg hover:bg-red/10 text-text-muted hover:text-red transition-colors"
             aria-label="Delete"
           >
-            <Trash2 size={14} />
+            <Trash2 size={13} />
           </button>
         </div>
       </div>

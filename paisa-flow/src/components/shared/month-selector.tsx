@@ -1,8 +1,6 @@
 "use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { motion } from "motion/react";
-import { navTapScale } from "@/lib/motion-presets";
 
 interface MonthSelectorProps {
   month: number;
@@ -25,27 +23,27 @@ export function MonthSelector({
 }: MonthSelectorProps) {
   return (
     <div
-      className={`flex items-center gap-2 bg-surface-2 border border-border-subtle rounded-xl p-1 ${className}`}
+      className={`flex items-center gap-1.5 bg-white border border-border-subtle rounded-2xl p-1 shadow-md ${className}`}
     >
-      <motion.button
-        {...navTapScale}
+      <button
+        type="button"
         onClick={onPrev}
-        className="w-10 h-10 rounded-lg flex items-center justify-center text-text-muted hover:text-text-primary hover:bg-surface-3 transition-colors"
+        className="w-9 h-9 rounded-xl flex items-center justify-center text-text-muted hover:text-text-primary hover:bg-surface-2 transition-colors"
         aria-label="Previous month"
       >
         <ChevronLeft size={18} />
-      </motion.button>
-      <span className="text-sm font-semibold text-text-primary px-3 min-w-[140px] text-center select-none font-heading">
+      </button>
+      <span className="text-[13px] font-bold text-text-primary px-3 min-w-[130px] text-center select-none font-heading">
         {getMonthName(month)} {year}
       </span>
-      <motion.button
-        {...navTapScale}
+      <button
+        type="button"
         onClick={onNext}
-        className="w-10 h-10 rounded-lg flex items-center justify-center text-text-muted hover:text-text-primary hover:bg-surface-3 transition-colors"
+        className="w-9 h-9 rounded-xl flex items-center justify-center text-text-muted hover:text-text-primary hover:bg-surface-2 transition-colors"
         aria-label="Next month"
       >
         <ChevronRight size={18} />
-      </motion.button>
+      </button>
     </div>
   );
 }

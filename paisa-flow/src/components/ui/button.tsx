@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "ghost" | "danger" | "violet";
+  variant?: "primary" | "secondary" | "ghost" | "danger" | "violet" | "brand";
   size?: "sm" | "md" | "lg";
   loading?: boolean;
   fullWidth?: boolean;
@@ -13,13 +13,14 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variants = {
   primary: "btn-primary",
+  brand: "btn-brand",
   secondary: "btn-secondary",
   ghost:
-    "h-12 px-4 rounded-xl text-text-secondary font-semibold font-heading hover:bg-surface-3 bg-transparent border-0 shadow-none",
+    "h-12 px-4 rounded-xl text-text-secondary font-bold font-heading hover:bg-surface-3 bg-transparent border-0 shadow-none transition-transform active:scale-95",
   danger:
-    "h-12 px-5 rounded-xl bg-red text-white font-semibold font-heading hover:bg-red/90 shadow-none",
+    "h-12 px-5 rounded-xl bg-red text-white font-bold font-heading hover:bg-red/90 shadow-none transition-transform active:scale-95",
   violet:
-    "h-12 px-5 rounded-xl bg-violet text-white font-semibold font-heading hover:opacity-90 shadow-none",
+    "h-12 px-5 rounded-xl bg-violet text-white font-bold font-heading hover:opacity-90 shadow-none transition-transform active:scale-95",
 };
 
 const sizeOverrides = {
@@ -45,7 +46,7 @@ export function Button({
         variants[variant],
         sizeOverrides[size],
         fullWidth && "w-full",
-        className
+        className,
       )}
       disabled={disabled || loading}
       {...props}

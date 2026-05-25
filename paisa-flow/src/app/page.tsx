@@ -4,7 +4,6 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import {
   Wallet,
-  MapPin,
   ArrowRight,
   TrendingUp,
   Users,
@@ -152,8 +151,8 @@ export default function LandingPage() {
             className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mt-6 leading-relaxed"
           >
             The premium personal finance app that combines daily expense
-            tracking with intelligent group trip splitting. No more awkward money
-            conversations.
+            tracking with intelligent group trip splitting. No more awkward
+            money conversations.
           </motion.p>
 
           <motion.div
@@ -197,7 +196,11 @@ export default function LandingPage() {
           <div className="bg-card border border-border rounded-3xl p-6 md:p-8 shadow-2xl">
             <div className="grid grid-cols-3 md:grid-cols-6 gap-3 mb-6">
               {[
-                { label: "This Month", value: "₹24,580", color: "text-text-primary" },
+                {
+                  label: "This Month",
+                  value: "₹24,580",
+                  color: "text-text-primary",
+                },
                 { label: "Today", value: "₹350", color: "text-text-primary" },
                 { label: "You're Owed", value: "₹4,200", color: "text-accent" },
                 { label: "You Owe", value: "₹1,800", color: "text-red" },
@@ -215,7 +218,9 @@ export default function LandingPage() {
                   <p className="text-[10px] md:text-xs text-text-muted uppercase tracking-wide">
                     {stat.label}
                   </p>
-                  <p className={`text-sm md:text-lg font-mono font-bold mt-1 ${stat.color}`}>
+                  <p
+                    className={`text-sm md:text-lg font-mono font-bold mt-1 ${stat.color}`}
+                  >
                     {stat.value}
                   </p>
                 </motion.div>
@@ -241,10 +246,25 @@ export default function LandingPage() {
               </div>
               <div className="bg-card-hover border border-border rounded-2xl p-5 h-40 flex items-center justify-center">
                 <div className="relative w-28 h-28">
-                  <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
-                    <circle cx="50" cy="50" r="40" stroke="#27272a" strokeWidth="8" fill="none" />
+                  <svg
+                    viewBox="0 0 100 100"
+                    className="w-full h-full -rotate-90"
+                  >
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="40"
+                      stroke="#27272a"
+                      strokeWidth="8"
+                      fill="none"
+                    />
                     <motion.circle
-                      cx="50" cy="50" r="40" stroke="#22c55e" strokeWidth="8" fill="none"
+                      cx="50"
+                      cy="50"
+                      r="40"
+                      stroke="#22c55e"
+                      strokeWidth="8"
+                      fill="none"
                       strokeDasharray={251.2}
                       initial={{ strokeDashoffset: 251.2 }}
                       whileInView={{ strokeDashoffset: 251.2 * 0.65 }}
@@ -253,7 +273,12 @@ export default function LandingPage() {
                       strokeLinecap="round"
                     />
                     <motion.circle
-                      cx="50" cy="50" r="40" stroke="#06b6d4" strokeWidth="8" fill="none"
+                      cx="50"
+                      cy="50"
+                      r="40"
+                      stroke="#06b6d4"
+                      strokeWidth="8"
+                      fill="none"
                       strokeDasharray={251.2}
                       initial={{ strokeDashoffset: 251.2 }}
                       whileInView={{ strokeDashoffset: 251.2 * 0.85 }}

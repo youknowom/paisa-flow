@@ -8,9 +8,9 @@ interface CategoryIconProps {
 }
 
 const sizeMap = {
-  sm: { box: "w-8 h-8", icon: 14, radius: "rounded-lg" },
+  sm: { box: "w-8 h-8", icon: 14, radius: "rounded-xl" },
   md: { box: "w-10 h-10", icon: 18, radius: "rounded-xl" },
-  lg: { box: "w-12 h-12", icon: 22, radius: "rounded-xl" },
+  lg: { box: "w-12 h-12", icon: 22, radius: "rounded-2xl" },
 };
 
 export function CategoryIcon({
@@ -28,11 +28,11 @@ export function CategoryIcon({
         dims.box,
         dims.radius,
         "flex items-center justify-center flex-shrink-0",
-        className
+        className,
       )}
       style={{ backgroundColor: style.bgTint }}
     >
-      <Icon size={dims.icon} style={{ color: style.color }} strokeWidth={2} />
+      <Icon size={dims.icon} style={{ color: style.color }} strokeWidth={1.75} />
     </div>
   );
 }

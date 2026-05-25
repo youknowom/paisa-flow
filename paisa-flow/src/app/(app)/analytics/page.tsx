@@ -5,7 +5,6 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { useBudgetStatus } from "@/hooks/use-budget-status";
-import { PageHeader } from "@/components/shared/page-header";
 import { MonthSelector } from "@/components/shared/month-selector";
 import { ChartTooltipContent } from "@/components/shared/chart-tooltip";
 import { EmptyState } from "@/components/shared/empty-state";
@@ -107,14 +106,13 @@ export default function AnalyticsPage() {
 
   if (isLoading) {
     return (
-      <div className="space-y-8">
-        <Skeleton className="h-14 w-64" />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="space-y-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <StatCardSkeleton />
           <StatCardSkeleton />
           <StatCardSkeleton />
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <ChartSkeleton />
           <ChartSkeleton />
         </div>
@@ -125,11 +123,8 @@ export default function AnalyticsPage() {
   if (!hasData) {
     return (
       <div>
-        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-8">
-          <PageHeader
-            title="Analytics"
-            subtitle="Visualize your spending patterns"
-          />
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+          <div />
           <MonthSelector
             month={month}
             year={year}
@@ -142,10 +137,7 @@ export default function AnalyticsPage() {
           description="Add some expenses first and come back here to see your spending patterns."
           lottieUrl="https://lottie.host/f2a3ec55-5771-4498-b230-7e5070e27e25/gKzXgYHPgI.lottie"
           action={
-            <Link
-              href="/daily"
-              className="btn-primary"
-            >
+            <Link href="/daily" className="btn-primary w-full">
               Add Expenses
             </Link>
           }
@@ -162,12 +154,9 @@ export default function AnalyticsPage() {
     })) ?? [];
 
   return (
-    <div className="space-y-8">
-      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-        <PageHeader
-          title="Analytics"
-          subtitle="Visualize your spending patterns"
-        />
+    <div className="space-y-5">
+      {/* Month selector */}
+      <div className="flex justify-end">
         <MonthSelector
           month={month}
           year={year}
@@ -177,56 +166,61 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Stat cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="card-surface-elevated p-5"
+          className="pf-card p-4"
         >
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-label text-text-muted">Total Spent</span>
-            <TrendingUp size={16} className="text-accent" />
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-[11px] font-bold text-text-muted uppercase tracking-wider">Total Spent</span>
+            <div className="w-7 h-7 rounded-full bg-accent/10 flex items-center justify-center">
+              <TrendingUp size={14} className="text-accent" />
+            </div>
           </div>
           <MoneyDisplay
             amount={monthlySummary?.totalSpent ?? 0}
             currency={currency}
-            className="text-2xl font-semibold text-text-primary"
+            className="text-[22px] font-bold text-text-primary"
           />
-          <p className="text-caption text-text-muted mt-2">
-            {monthlySummary?.expenseCount ?? 0} transaction
-            {(monthlySummary?.expenseCount ?? 0) !== 1 ? "s" : ""}
+          <p className="text-[11px] text-text-muted mt-1 font-medium">
+            {monthlySummary?.expenseCount ?? 0} transaction{(monthlySummary?.expenseCount ?? 0) !== 1 ? "s" : ""}
           </p>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.05 }}
-          className="card-surface-elevated p-5"
+          className="pf-card p-4"
         >
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-label text-text-muted">Average / Day</span>
-            <BarChart3 size={16} className="text-violet" />
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-[11px] font-bold text-text-muted uppercase tracking-wider">Average / Day</span>
+            <div className="w-7 h-7 rounded-full bg-violet/10 flex items-center justify-center">
+              <BarChart3 size={14} className="text-violet" />
+            </div>
           </div>
           <MoneyDisplay
             amount={monthlySummary?.avgPerDay ?? 0}
             currency={currency}
-            className="text-2xl font-semibold text-text-primary"
+            className="text-[22px] font-bold text-text-primary"
           />
-          <p className="text-caption text-text-muted mt-2">This month</p>
+          <p className="text-[11px] text-text-muted mt-1 font-medium">This month</p>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="card-surface-elevated p-5"
+          className="pf-card p-4"
         >
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-label text-text-muted">Top Category</span>
-            <Sparkles size={16} className="text-amber" />
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-[11px] font-bold text-text-muted uppercase tracking-wider">Top Category</span>
+            <div className="w-7 h-7 rounded-full bg-amber/10 flex items-center justify-center">
+              <Sparkles size={14} className="text-amber" />
+            </div>
           </div>
-          <p className="text-xl font-semibold text-text-primary font-heading truncate capitalize">
+          <p className="text-[18px] font-bold text-text-primary font-heading truncate capitalize">
             {(() => {
               if (!monthlySummary?.topCategory) return "—";
               const cat = CATEGORIES.find(
@@ -235,27 +229,27 @@ export default function AnalyticsPage() {
               return cat ? cat.label : monthlySummary.topCategory;
             })()}
           </p>
-          <p className="text-caption text-text-muted mt-2">Highest spend</p>
+          <p className="text-[11px] text-text-muted mt-1 font-medium">Highest spend</p>
         </motion.div>
       </div>
 
-      {/* Weekly area + category donut */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* Charts row */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15 }}
-          className="card-surface p-5"
+          className="pf-card p-5"
         >
-          <h3 className="text-h3 font-medium text-text-primary font-heading mb-6">
+          <h3 className="text-[15px] font-bold text-text-primary font-heading mb-5">
             Weekly Trend
           </h3>
-          <div className="h-52">
+          <div className="h-48">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={weeklyTrend ?? []}>
                 <defs>
                   <linearGradient id="areaGreen" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#0C831F" stopOpacity={0.15} />
+                    <stop offset="0%" stopColor="#0C831F" stopOpacity={0.12} />
                     <stop offset="100%" stopColor="#0C831F" stopOpacity={0} />
                   </linearGradient>
                 </defs>
@@ -268,7 +262,7 @@ export default function AnalyticsPage() {
                   }
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: "#6B6B6B", fontSize: 11 }}
+                  tick={{ fill: "#8c8c8c", fontSize: 11 }}
                 />
                 <Tooltip
                   content={({ active, payload }) => {
@@ -296,7 +290,7 @@ export default function AnalyticsPage() {
                   fill="url(#areaGreen)"
                   dot={{ r: 2, fill: "#0C831F" }}
                   activeDot={{ r: 4, fill: "#0C831F" }}
-                  animationDuration={800}
+                  animationDuration={700}
                 />
               </AreaChart>
             </ResponsiveContainer>
@@ -307,30 +301,24 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Daily bars + payment modes */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="card-surface p-5"
+          className="pf-card p-5"
         >
-          <h3 className="text-h3 font-medium text-text-primary font-heading mb-6">
+          <h3 className="text-[15px] font-bold text-text-primary font-heading mb-5">
             Daily Spending
           </h3>
-          <div className="h-64">
+          <div className="h-56">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={dailyChartData} barCategoryGap="15%">
-                <defs>
-                  <linearGradient id="barGreen" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#0C831F" />
-                    <stop offset="100%" stopColor="#0A6B19" />
-                  </linearGradient>
-                </defs>
                 <XAxis
                   dataKey="day"
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: "#6B6B6B", fontSize: 10 }}
+                  tick={{ fill: "#8c8c8c", fontSize: 10 }}
                 />
                 <Tooltip
                   content={({ active, payload }) => {
@@ -346,10 +334,10 @@ export default function AnalyticsPage() {
                 />
                 <Bar
                   dataKey="amount"
-                  fill="url(#barGreen)"
+                  fill="#0C831F"
                   radius={[6, 6, 0, 0]}
-                  maxBarSize={28}
-                  animationDuration={800}
+                  maxBarSize={24}
+                  animationDuration={700}
                 />
               </BarChart>
             </ResponsiveContainer>
@@ -357,26 +345,26 @@ export default function AnalyticsPage() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25 }}
-          className="card-surface p-5"
+          className="pf-card p-5"
         >
-          <h3 className="text-h3 font-medium text-text-primary font-heading mb-6 flex items-center gap-2">
-            <CreditCard size={18} className="text-accent" />
+          <h3 className="text-[15px] font-bold text-text-primary font-heading mb-5 flex items-center gap-2">
+            <CreditCard size={16} className="text-accent" />
             Payment Modes
           </h3>
-          <div className="h-64">
+          <div className="h-56">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={paymentModeData} layout="vertical" margin={{ left: 4, right: 16 }}>
                 <XAxis type="number" hide />
                 <YAxis
                   dataKey="name"
                   type="category"
-                  width={72}
+                  width={64}
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: "#A3A3A3", fontSize: 11 }}
+                  tick={{ fill: "#8c8c8c", fontSize: 11 }}
                 />
                 <Tooltip
                   content={({ active, payload }) => {
@@ -392,10 +380,10 @@ export default function AnalyticsPage() {
                 />
                 <Bar
                   dataKey="value"
-                  fill="#7C3AED"
+                  fill="#6b21a8"
                   radius={[0, 6, 6, 0]}
-                  maxBarSize={20}
-                  animationDuration={800}
+                  maxBarSize={18}
+                  animationDuration={700}
                 />
               </BarChart>
             </ResponsiveContainer>
@@ -405,31 +393,31 @@ export default function AnalyticsPage() {
 
       {/* Budget vs actual */}
       <motion.div
-        initial={{ opacity: 0, y: 12 }}
+        initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="card-surface p-5"
+        className="pf-card p-5"
       >
-        <h3 className="text-h3 font-medium text-text-primary font-heading mb-6">
+        <h3 className="text-[15px] font-bold text-text-primary font-heading mb-5">
           Budget vs. Actual
         </h3>
         {budgetStatus?.budgetSet ? (
-          <div className="max-w-xl space-y-6">
+          <div className="max-w-xl space-y-5">
             <div className="grid grid-cols-2 gap-6">
               <div>
-                <p className="text-label text-text-muted mb-1">Budget Limit</p>
+                <p className="text-[11px] font-bold text-text-muted uppercase tracking-wider mb-1">Budget Limit</p>
                 <MoneyDisplay
                   amount={budgetStatus.budget}
                   currency={currency}
-                  className="text-xl font-semibold text-text-primary"
+                  className="text-xl font-bold text-text-primary"
                 />
               </div>
               <div>
-                <p className="text-label text-text-muted mb-1">Spent</p>
+                <p className="text-[11px] font-bold text-text-muted uppercase tracking-wider mb-1">Spent</p>
                 <MoneyDisplay
                   amount={budgetStatus.spent}
                   currency={currency}
-                  className="text-xl font-semibold text-text-primary"
+                  className="text-xl font-bold text-text-primary"
                 />
               </div>
             </div>
@@ -451,10 +439,10 @@ export default function AnalyticsPage() {
                 )}
               />
             </div>
-            <div className="flex justify-between text-caption">
+            <div className="flex justify-between text-[12px]">
               <span
                 className={cn(
-                  "font-medium",
+                  "font-semibold",
                   budgetStatus.warningLevel === "exceeded" ||
                     budgetStatus.warningLevel === "danger"
                     ? "text-red"
@@ -465,7 +453,7 @@ export default function AnalyticsPage() {
               >
                 {budgetStatus.percentage.toFixed(0)}% consumed
               </span>
-              <span className="text-text-muted">
+              <span className="text-text-muted font-medium">
                 {budgetStatus.budget >= budgetStatus.spent
                   ? `${formatMoney(budgetStatus.budget - budgetStatus.spent, currency)} left`
                   : `${formatMoney(budgetStatus.spent - budgetStatus.budget, currency)} over`}
@@ -474,13 +462,10 @@ export default function AnalyticsPage() {
           </div>
         ) : (
           <div className="py-8 text-center">
-            <p className="text-sm text-text-muted mb-4">
+            <p className="text-[13px] text-text-muted mb-4">
               No monthly budget set yet
             </p>
-            <Link
-              href="/budget"
-              className="btn-primary !h-11 !text-sm"
-            >
+            <Link href="/budget" className="btn-primary !h-10 !text-[13px]">
               Set Budget
             </Link>
           </div>

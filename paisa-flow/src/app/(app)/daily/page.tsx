@@ -135,19 +135,19 @@ export default function DailyExpensesPage() {
   };
 
   return (
-    <div className="pb-24 md:pb-8">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-5">
-        <h1 className="page-title">Daily Spend</h1>
+    <div>
+      {/* Desktop header + Add button (mobile header is in AppHeader) */}
+      <div className="hidden md:flex items-center justify-between mb-5">
+        <div />
         <button
           type="button"
           onClick={() => {
             setEditData(null);
             setDialogOpen(true);
           }}
-          className="btn-primary hidden md:inline-flex"
+          className="btn-primary !h-10 !text-[13px] !rounded-xl !px-4"
         >
-          <Plus size={18} />
+          <Plus size={16} />
           Add Expense
         </button>
       </div>
@@ -183,18 +183,18 @@ export default function DailyExpensesPage() {
       ) : expenses.length === 0 ? (
         <EmptyState
           title="No expenses yet"
-          description="Tap the + button below to add your first expense."
+          description="Add your first expense to start tracking your spending."
           lottieUrl="https://lottie.host/f2a3ec55-5771-4498-b230-7e5070e27e25/gKzXgYHPgI.lottie"
         />
       ) : (
-        <div className="space-y-6">
+        <div className="space-y-5">
           <AnimatePresence mode="popLayout">
             {groupedExpenses.map(([date, items]) => (
               <div key={date}>
-                <p className="text-label text-text-muted mb-3 sticky top-0 bg-background/90 backdrop-blur-sm py-1 z-10">
+                <p className="text-[11px] font-bold text-text-muted mb-2.5 uppercase tracking-wider font-heading sticky top-[56px] md:top-[68px] bg-background/90 backdrop-blur-sm py-1.5 z-10">
                   {formatDateHeader(date)}
                 </p>
-                <div className="space-y-3">
+                <div className="space-y-2.5">
                   {items.map((expense) => (
                     <ExpenseCard
                       key={expense._id}

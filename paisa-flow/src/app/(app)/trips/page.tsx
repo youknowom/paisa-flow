@@ -25,26 +25,28 @@ export default function TripsPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-5">
-        <h1 className="page-title">Trips</h1>
+      {/* Desktop header (mobile title is in AppHeader) */}
+      <div className="hidden md:flex items-center justify-between mb-5">
+        <div />
         <button
           type="button"
           onClick={() => setDialogOpen(true)}
-          className="btn-primary hidden md:inline-flex"
+          className="btn-primary !h-10 !text-[13px] !rounded-xl !px-4"
         >
-          <Plus size={18} />
+          <Plus size={16} />
           New Trip
         </button>
       </div>
 
-      <div className="flex gap-2 mb-8">
+      {/* Filter chips */}
+      <div className="flex gap-2 mb-5">
         {[
           { value: "active", label: "Active" },
           { value: "completed", label: "Completed" },
         ].map((filter) => (
-          <motion.button
+          <button
             key={filter.value}
-            {...navTapScale}
+            type="button"
             onClick={() => setStatusFilter(filter.value)}
             className={cn(
               "chip",
@@ -52,12 +54,12 @@ export default function TripsPage() {
             )}
           >
             {filter.label}
-          </motion.button>
+          </button>
         ))}
       </div>
 
       {trips === undefined ? (
-        <div className="space-y-4">
+        <div className="space-y-3">
           {Array.from({ length: 4 }).map((_, i) => (
             <TripCardSkeleton key={i} />
           ))}
@@ -65,26 +67,26 @@ export default function TripsPage() {
       ) : trips.length === 0 ? (
         <EmptyState
           title="No trips yet"
-          description="Create a trip from the Trips tab on desktop, or tap + on Home to add expenses first."
+          description="Create a trip and invite friends to split expenses together."
           lottieUrl="https://lottie.host/a0e8038b-d250-42be-9b78-4a6c62b5db21/bR4MzcRfKi.lottie"
           action={
             <button
               type="button"
               onClick={() => setDialogOpen(true)}
-              className="btn-primary w-full md:inline-flex"
+              className="btn-primary w-full"
             >
               Create Trip
             </button>
           }
         />
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-3">
           <AnimatePresence>
             {trips.map((trip) => (
               <motion.div
                 key={trip._id}
                 layout
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
               >
@@ -95,14 +97,14 @@ export default function TripsPage() {
         </div>
       )}
 
-      {/* Mobile: floating new trip */}
+      {/* Mobile: floating new trip button */}
       <button
         type="button"
         onClick={() => setDialogOpen(true)}
-        className="btn-fab fixed bottom-[calc(76px+env(safe-area-inset-bottom))] right-4 md:hidden z-40"
+        className="btn-fab fixed bottom-[calc(80px+env(safe-area-inset-bottom))] right-4 md:hidden z-40"
         aria-label="New trip"
       >
-        <Plus size={26} strokeWidth={2.5} />
+        <Plus size={24} strokeWidth={2.5} />
       </button>
 
       <CreateTripDialog open={dialogOpen} onClose={() => setDialogOpen(false)} />

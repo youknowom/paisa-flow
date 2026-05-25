@@ -5,7 +5,6 @@ import Link from "next/link";
 import { formatMoney } from "@/lib/format-money";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Users, Calendar, ChevronRight } from "lucide-react";
-import { cardTapScale } from "@/lib/motion-presets";
 import { cn } from "@/lib/utils";
 
 interface TripCardProps {
@@ -32,30 +31,26 @@ export function TripCard({ trip, currency }: TripCardProps) {
     });
 
   const isPositive = trip.myBalance >= 0;
-  const borderColor = isPositive ? "border-l-accent" : "border-l-red";
 
   return (
     <Link href={`/trips/${trip._id}`}>
       <motion.div
-        {...cardTapScale}
-        whileHover={{ backgroundColor: "rgba(22, 22, 22, 0.8)" }}
-        className={cn(
-          "card-surface p-5 border-l-[3px] cursor-pointer group transition-shadow hover:shadow-[0_0_20px_rgba(0,210,106,0.08)]",
-          borderColor
-        )}
+        whileTap={{ scale: 0.98 }}
+        className="pf-card p-4 md:p-5 cursor-pointer group hover:shadow-lg transition-shadow"
       >
-        <div className="flex items-start gap-4 mb-4">
-          <div className="w-12 h-12 rounded-full bg-surface-3 flex items-center justify-center text-2xl flex-shrink-0">
+        {/* Top row: emoji + name + badge */}
+        <div className="flex items-start gap-3.5 mb-3">
+          <div className="w-12 h-12 rounded-2xl bg-surface-2 flex items-center justify-center text-2xl flex-shrink-0">
             {trip.coverEmoji || "🌍"}
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between gap-2">
-              <div>
-                <h3 className="text-h3 font-semibold text-text-primary truncate font-heading">
+              <div className="min-w-0">
+                <h3 className="text-[15px] font-bold text-text-primary truncate font-heading">
                   {trip.name}
                 </h3>
-                <p className="text-sm text-text-muted flex items-center gap-1 mt-0.5">
-                  <MapPin size={12} />
+                <p className="text-[12px] text-text-muted flex items-center gap-1 mt-0.5">
+                  <MapPin size={11} />
                   {trip.location}
                 </p>
               </div>
@@ -74,43 +69,47 @@ export function TripCard({ trip, currency }: TripCardProps) {
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-4 text-caption text-text-muted mb-4">
+        {/* Meta row */}
+        <div className="flex flex-wrap gap-3 text-[11px] text-text-muted mb-3">
           <div className="flex items-center gap-1">
-            <Calendar size={12} />
-            <span className="text-text-secondary">
+            <Calendar size={11} />
+            <span className="font-medium">
               {formatDate(trip.startDate)} – {formatDate(trip.endDate)}
             </span>
           </div>
           <div className="flex items-center gap-1">
-            <Users size={12} />
-            <span className="text-text-secondary">{trip.memberCount} members</span>
+            <Users size={11} />
+            <span className="font-medium">{trip.memberCount} members</span>
           </div>
           <div>
-            <span className="text-text-secondary font-mono-amount">
+            <span className="font-mono font-semibold text-text-secondary">
               {formatMoney(trip.totalExpenses, currency)}
             </span>
             <span className="ml-1">total</span>
           </div>
         </div>
 
-        <div className="flex items-center justify-between pt-4 border-t border-border-subtle">
+        {/* Balance row */}
+        <div className="flex items-center justify-between pt-3 border-t border-border-subtle">
           <div>
-            <p className="text-label text-text-muted">
+            <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-0.5">
               {isPositive ? "You Are Owed" : "You Owe"}
             </p>
             <p
               className={cn(
-                "text-base font-mono-amount font-bold",
+                "text-[15px] font-mono font-bold",
                 isPositive ? "text-accent" : "text-red"
               )}
             >
               {formatMoney(Math.abs(trip.myBalance), currency)}
             </p>
           </div>
-          <ChevronRight
-            size={18}
-            className="text-text-muted group-hover:text-accent transition-colors"
-          />
+          <div className="w-8 h-8 rounded-full bg-surface-2 flex items-center justify-center group-hover:bg-accent-muted transition-colors">
+            <ChevronRight
+              size={16}
+              className="text-text-muted group-hover:text-accent transition-colors"
+            />
+          </div>
         </div>
       </motion.div>
     </Link>

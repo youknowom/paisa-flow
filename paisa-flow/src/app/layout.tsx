@@ -1,21 +1,15 @@
 import type { Metadata } from "next";
-import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { Outfit } from "next/font/google";
 import { GeistMono } from "geist/font/mono";
 import { Toaster } from "sonner";
 import { ConvexClientProvider } from "./providers";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 
-const plusJakarta = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -47,9 +41,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plusJakarta.variable} ${inter.variable} ${GeistMono.variable} h-full antialiased`}
+      className={`${outfit.variable} ${GeistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background text-text-primary">
+      <body
+        className="min-h-full flex flex-col bg-background text-text-primary"
+        suppressHydrationWarning
+      >
         <ConvexClientProvider>
           {children}
           <Analytics />
@@ -61,9 +58,11 @@ export default function RootLayout({
               classNames: {
                 toast:
                   "rounded-xl border border-border-subtle shadow-lg font-body text-sm",
-                success: "!bg-white !text-text-primary !border-l-4 !border-l-accent",
+                success:
+                  "!bg-white !text-text-primary !border-l-4 !border-l-accent",
                 error: "!bg-white !text-text-primary !border-l-4 !border-l-red",
-                warning: "!bg-white !text-text-primary !border-l-4 !border-l-amber",
+                warning:
+                  "!bg-white !text-text-primary !border-l-4 !border-l-amber",
               },
             }}
             closeButton

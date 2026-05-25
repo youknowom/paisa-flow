@@ -29,13 +29,13 @@ export function SummaryPills({
   ];
 
   return (
-    <div className="grid grid-cols-3 gap-2 mb-5">
+    <div className="grid grid-cols-3 gap-2 mb-4">
       {pills.map((pill) => (
-        <div key={pill.label} className="summary-pill">
-          <p className="text-[11px] font-semibold text-text-muted font-heading mb-1">
+        <div key={pill.label} className="pf-card p-3">
+          <p className="text-[10px] font-bold text-text-muted font-heading mb-1 uppercase tracking-wider">
             {pill.label}
           </p>
-          <p className="stat-amount text-[17px]">
+          <p className="font-mono text-[16px] font-bold text-text-primary tracking-tight">
             {formatMoney(pill.value, currency, true)}
           </p>
         </div>
@@ -65,15 +65,15 @@ export function FloatingMonthSummary({
   monthLabel: string;
 }) {
   return (
-    <div className="fixed bottom-[calc(68px+env(safe-area-inset-bottom))] left-3 right-3 md:hidden z-40">
-      <div className="card-surface px-4 py-3 flex items-center justify-between shadow-[var(--shadow-card-hover)]">
-        <span className="text-[13px] font-semibold text-text-muted font-heading">
+    <div className="fixed bottom-[calc(72px+env(safe-area-inset-bottom))] left-4 right-4 md:hidden z-30">
+      <div className="rounded-2xl bg-white border border-border-subtle px-4 py-3 flex items-center justify-between shadow-md">
+        <span className="text-[12px] font-bold text-text-muted font-heading uppercase tracking-wider">
           {monthLabel}
         </span>
         <MoneyDisplay
           amount={total}
           currency={currency}
-          className="stat-amount text-[17px]"
+          className="font-mono text-[16px] font-bold text-text-primary"
         />
       </div>
     </div>

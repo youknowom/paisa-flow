@@ -30,19 +30,19 @@ export function MobileNav() {
 
   return (
     <>
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 glass safe-area-pb">
-        <div className="flex items-center justify-around h-[64px] px-1">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-border-subtle safe-area-pb">
+        <div className="flex items-center justify-around h-[64px] px-2">
           {tabs.map((tab) => {
             if (tab.href === "__fab__") {
               return (
-                <div key="fab" className="flex flex-col items-center -mt-7">
+                <div key="fab" className="flex flex-col items-center -mt-6">
                   <button
                     type="button"
                     onClick={() => setAddOpen(true)}
                     className="btn-fab"
                     aria-label="Add expense"
                   >
-                    <Plus size={28} strokeWidth={2.5} />
+                    <Plus size={26} strokeWidth={2.5} />
                   </button>
                 </div>
               );
@@ -55,19 +55,26 @@ export function MobileNav() {
               <Link
                 key={tab.href}
                 href={tab.href}
-                className="flex flex-col items-center justify-center min-w-[60px] py-1"
+                className="flex flex-col items-center justify-center min-w-[56px] py-1.5"
               >
-                <tab.icon
-                  size={22}
-                  strokeWidth={isActive ? 2.25 : 2}
+                <div
                   className={cn(
-                    "transition-colors",
-                    isActive ? "text-accent" : "text-text-muted"
+                    "w-10 h-7 rounded-full flex items-center justify-center transition-colors mb-0.5",
+                    isActive ? "bg-accent-muted" : "bg-transparent"
                   )}
-                />
+                >
+                  <tab.icon
+                    size={20}
+                    strokeWidth={isActive ? 2.25 : 1.75}
+                    className={cn(
+                      "transition-colors",
+                      isActive ? "text-accent" : "text-text-muted"
+                    )}
+                  />
+                </div>
                 <span
                   className={cn(
-                    "text-[11px] mt-1 font-semibold font-heading",
+                    "text-[10px] font-semibold font-heading",
                     isActive ? "text-accent" : "text-text-muted"
                   )}
                 >

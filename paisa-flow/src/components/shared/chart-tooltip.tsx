@@ -2,27 +2,24 @@
 
 import { formatMoney } from "@/lib/format-money";
 
-interface ChartTooltipProps {
-  label?: string;
+interface ChartTooltipContentProps {
+  label: string;
   amount: number;
   currency: string;
-  suffix?: string;
 }
 
 export function ChartTooltipContent({
   label,
   amount,
   currency,
-  suffix,
-}: ChartTooltipProps) {
+}: ChartTooltipContentProps) {
   return (
-    <div className="bg-surface-2 border border-accent/30 rounded-xl px-3 py-2 shadow-xl">
-      {label && (
-        <p className="text-caption text-text-muted">{label}</p>
-      )}
-      <p className="text-sm font-mono-amount font-semibold text-text-primary">
+    <div className="bg-white border border-border-subtle rounded-xl px-3 py-2 shadow-lg">
+      <p className="text-[11px] font-semibold text-text-muted uppercase tracking-wider">
+        {label}
+      </p>
+      <p className="text-[15px] font-mono font-bold text-text-primary mt-0.5">
         {formatMoney(amount, currency)}
-        {suffix ? ` ${suffix}` : ""}
       </p>
     </div>
   );

@@ -69,7 +69,7 @@ export default function ProfilePage() {
 
   if (isLoading || !user) {
     return (
-      <div className="space-y-6 max-w-2xl mx-auto">
+      <div className="space-y-5 max-w-2xl mx-auto">
         <Skeleton className="h-10 w-40" />
         <Skeleton className="h-96 rounded-2xl" />
       </div>
@@ -77,23 +77,20 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto pb-8">
-      <h1 className="page-title mb-1">Profile</h1>
-      <p className="text-[14px] text-text-muted mb-6">
-        Your name, currency, and defaults
-      </p>
-
-      <div className="card-surface p-5 mb-5 flex items-center gap-4">
+    <div className="max-w-2xl mx-auto">
+      {/* User card */}
+      <div className="pf-card p-5 mb-4 flex items-center gap-4">
         <Avatar name={user.name} imageUrl={user.imageUrl} size="lg" />
         <div className="min-w-0">
-          <p className="text-[16px] font-bold text-text-primary font-heading truncate">
+          <p className="text-[15px] font-bold text-text-primary font-heading truncate">
             {user.name}
           </p>
-          <p className="text-[13px] text-text-muted truncate">{user.email}</p>
+          <p className="text-[12px] text-text-muted truncate">{user.email}</p>
         </div>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="card-surface p-5">
+      {/* Form card */}
+      <form onSubmit={handleSubmit(onSubmit)} className="pf-card p-5">
         <div className="form-group">
           <label className="form-label">Display name</label>
           <input
@@ -119,7 +116,7 @@ export default function ProfilePage() {
         <div className="form-group">
           <label className="form-label">Monthly budget (optional)</label>
           <div className="relative">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted font-mono-amount text-[15px]">
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted font-mono text-[15px]">
               ₹
             </span>
             <input

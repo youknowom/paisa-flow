@@ -1,17 +1,18 @@
 "use client";
 
-import { motion } from "motion/react";
 import Link from "next/link";
 import { formatMoney } from "@/lib/format-money";
-import { MapPin } from "lucide-react";
-import { cardTapScale } from "@/lib/motion-presets";
+import { ArrowRight, Users } from "lucide-react";
+import { motion } from "motion/react";
 
 interface Trip {
   _id: string;
   name: string;
-  location: string;
-  coverEmoji?: string;
+  emoji: string;
+  totalExpenses: number;
+  memberCount: number;
   myBalance: number;
+  status: string;
 }
 
 interface ActiveTripsRowProps {
@@ -20,54 +21,53 @@ interface ActiveTripsRowProps {
 }
 
 export function ActiveTripsRow({ trips, currency }: ActiveTripsRowProps) {
-  if (trips.length === 0) return null;
-
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.55 }}
+      transition={{ delay: 0.5 }}
     >
-      <h3 className="text-h3 font-medium text-text-primary font-heading mb-4">
-        Active Trips
-      </h3>
-      <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-1 px-1">
-        {trips.map((trip) => {
-          const owed = trip.myBalance >= 0;
-          return (
-            <Link key={trip._id} href={`/trips/${trip._id}`}>
-              <motion.div
-                {...cardTapScale}
-                className="flex-shrink-0 w-[200px] card-surface-elevated p-4"
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-full bg-surface-3 flex items-center justify-center text-xl">
-                    {trip.coverEmoji || "🌍"}
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-sm font-semibold text-text-primary truncate font-heading">
-                      {trip.name}
-                    </p>
-                    <p className="text-caption text-text-muted flex items-center gap-0.5 truncate">
-                      <MapPin size={10} />
-                      {trip.location}
-                    </p>
-                  </div>
-                </div>
-                <p className="text-caption text-text-muted">
-                  {owed ? "You are owed" : "You owe"}
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="text-[15px] font-bold text-text-primary font-heading">
+          Active Trips
+        </h3>
+        <Link
+          href="/trips"
+          className="text-[12px] font-bold text-accent hover:text-accent-hover flex items-center gap-1 transition-colors uppercase tracking-wider"
+        >
+          View all <ArrowRight size={12} strokeWidth={2.5} />
+        </Link>
+      </div>
+
+      <div className="flex gap-3 overflow-x-auto no-scrollbar pb-1">
+        {trips.slice(0, 4).map((trip) => (
+          <Link
+            key={trip._id}
+            href={`/trips/${trip._id}`}
+            className="flex-shrink-0 w-[200px] md:w-auto md:flex-1"
+          >
+            <div className="pf-card p-4 hover:shadow-lg transition-shadow h-full">
+              <div className="flex items-center gap-2.5 mb-3">
+                <span className="text-xl">{trip.emoji || "✈️"}</span>
+                <p className="text-[14px] font-bold text-text-primary font-heading truncate">
+                  {trip.name}
                 </p>
-                <p
-                  className={`text-sm font-mono-amount font-semibold ${
-                    owed ? "text-accent" : "text-red"
-                  }`}
-                >
+              </div>
+              <div className="flex items-center gap-1.5 text-[11px] text-text-muted mb-2">
+                <Users size={12} />
+                <span className="font-medium">{trip.memberCount} members</span>
+              </div>
+              <div className="pt-2 border-t border-border-subtle">
+                <p className="text-[11px] font-semibold text-text-muted uppercase tracking-wider mb-0.5">
+                  {trip.myBalance >= 0 ? "You get back" : "You owe"}
+                </p>
+                <span className={`text-[15px] font-mono font-bold ${trip.myBalance >= 0 ? "text-accent" : "text-red"}`}>
                   {formatMoney(Math.abs(trip.myBalance), currency)}
-                </p>
-              </motion.div>
-            </Link>
-          );
-        })}
+                </span>
+              </div>
+            </div>
+          </Link>
+        ))}
       </div>
     </motion.div>
   );

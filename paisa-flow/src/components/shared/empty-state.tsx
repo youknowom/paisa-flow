@@ -17,13 +17,13 @@ export function EmptyState({
   action,
 }: EmptyStateProps) {
   return (
-    <div className="empty-box flex flex-col items-center text-center">
-      <LottieAnimation url={lottieUrl} width={160} height={160} />
-      <h3 className="text-[17px] font-bold text-text-primary font-heading mt-4">
+    <div className="rounded-2xl bg-white border border-dashed border-border-strong p-10 flex flex-col items-center text-center">
+      <LottieAnimation url={lottieUrl} width={140} height={140} />
+      <h3 className="text-[16px] font-bold text-text-primary font-heading mt-5">
         {title}
       </h3>
       {description && (
-        <p className="text-[14px] text-text-muted mt-2 max-w-[260px] leading-relaxed">
+        <p className="text-[13px] text-text-muted mt-2 max-w-[280px] leading-relaxed">
           {description}
         </p>
       )}

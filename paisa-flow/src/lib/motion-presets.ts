@@ -1,26 +1,26 @@
 export const springPress = {
   type: "spring" as const,
-  stiffness: 400,
+  stiffness: 700,
   damping: 25,
 };
 
 export const springSmooth = {
   type: "spring" as const,
-  stiffness: 300,
-  damping: 30,
+  stiffness: 400,
+  damping: 25,
 };
 
 export const tapScale = {
-  whileTap: { scale: 0.97 },
+  whileTap: { scale: 0.94 },
   transition: springPress,
 };
 
 export const cardTapScale = {
-  whileTap: { scale: 0.99 },
+  whileTap: { scale: 0.96 },
   transition: springPress,
 };
 
 export const navTapScale = {
-  whileTap: { scale: 0.95 },
+  whileTap: { scale: 0.92 },
   transition: springPress,
 };

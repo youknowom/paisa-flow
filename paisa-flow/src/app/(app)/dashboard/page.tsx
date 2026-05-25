@@ -5,7 +5,6 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { useBudgetStatus } from "@/hooks/use-budget-status";
-import { DashboardGreeting } from "@/components/dashboard/dashboard-greeting";
 import { HeroCard } from "@/components/dashboard/hero-card";
 import { StatCard } from "@/components/dashboard/stat-card";
 import { BudgetProgress } from "@/components/dashboard/budget-progress";
@@ -21,7 +20,12 @@ import {
   TrendingUp,
   TrendingDown,
   MapPin,
+  Plus,
+  Plane,
+  Target,
+  BarChart3,
 } from "lucide-react";
+import Link from "next/link";
 import type { Id } from "@/convex/_generated/dataModel";
 
 export default function DashboardPage() {
@@ -119,25 +123,23 @@ export default function DashboardPage() {
   };
 
   return (
-    <div>
-      <DashboardGreeting
-        name={user?.name || "there"}
-        imageUrl={user?.imageUrl}
-      />
-
+    <div className="space-y-5">
+      {/* Hero Money Card */}
       <HeroCard
         totalSpent={monthlySummary?.totalSpent ?? 0}
         currency={currency}
         changePercent={0}
       />
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+      {/* Quick Stats Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <StatCard
           label="Today's Spend"
           value={todaySpend}
           currency={currency}
           icon={CalendarDays}
           iconColor="text-accent"
+          iconBg="bg-accent/10"
         />
         <StatCard
           label="You Are Owed"
@@ -145,6 +147,7 @@ export default function DashboardPage() {
           currency={currency}
           icon={TrendingUp}
           iconColor="text-accent"
+          iconBg="bg-accent/10"
           variant="positive"
         />
         <StatCard
@@ -153,6 +156,7 @@ export default function DashboardPage() {
           currency={currency}
           icon={TrendingDown}
           iconColor="text-red"
+          iconBg="bg-red/10"
           variant="negative"
         />
         <StatCard
@@ -161,10 +165,12 @@ export default function DashboardPage() {
           currency={currency}
           icon={MapPin}
           iconColor="text-violet"
+          iconBg="bg-violet/10"
           isCount
         />
       </div>
 
+      {/* Budget Progress */}
       {budgetStatus?.budgetSet && (
         <BudgetProgress
           spent={budgetStatus.spent}
@@ -175,14 +181,52 @@ export default function DashboardPage() {
         />
       )}
 
+      {/* Quick Actions */}
+      <div className="grid grid-cols-4 gap-3">
+        <button
+          type="button"
+          onClick={() => {
+            setEditData(null);
+            setDialogOpen(true);
+          }}
+          className="quick-action"
+        >
+          <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+            <Plus size={20} className="text-accent" />
+          </div>
+          <span className="text-[11px] font-semibold text-text-secondary font-heading">Add Expense</span>
+        </button>
+        <Link href="/trips" className="quick-action">
+          <div className="w-10 h-10 rounded-full bg-cyan/10 flex items-center justify-center">
+            <Plane size={18} className="text-cyan" />
+          </div>
+          <span className="text-[11px] font-semibold text-text-secondary font-heading">Add Trip</span>
+        </Link>
+        <Link href="/budget" className="quick-action">
+          <div className="w-10 h-10 rounded-full bg-violet/10 flex items-center justify-center">
+            <Target size={18} className="text-violet" />
+          </div>
+          <span className="text-[11px] font-semibold text-text-secondary font-heading">Set Budget</span>
+        </Link>
+        <Link href="/analytics" className="quick-action">
+          <div className="w-10 h-10 rounded-full bg-amber/10 flex items-center justify-center">
+            <BarChart3 size={18} className="text-amber" />
+          </div>
+          <span className="text-[11px] font-semibold text-text-secondary font-heading">Analytics</span>
+        </Link>
+      </div>
+
+      {/* Weekly Trend Chart */}
       <SpendingChart data={weeklyTrend ?? []} currency={currency} />
 
+      {/* Recent Expenses */}
       <RecentExpenses
         expenses={dailyExpenses ?? []}
         currency={currency}
         onExpenseClick={handleExpenseClick}
       />
 
+      {/* Active Trips */}
       {activeTrips && activeTrips.length > 0 && (
         <ActiveTripsRow trips={activeTrips} currency={currency} />
       )}

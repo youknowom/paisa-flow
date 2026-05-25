@@ -17,14 +17,14 @@ export function CategoryPie({ data, currency }: CategoryPieProps) {
   if (data.length === 0) {
     return (
       <motion.div
-        initial={{ opacity: 0, y: 16 }}
+        initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        className="card-surface p-5"
+        className="pf-card p-5"
       >
-        <h3 className="text-h3 font-medium text-text-primary font-heading mb-4">
+        <h3 className="text-[15px] font-bold text-text-primary font-heading mb-4">
           By Category
         </h3>
-        <p className="text-sm text-text-muted py-12 text-center">
+        <p className="text-[13px] text-text-muted py-12 text-center">
           No category data yet
         </p>
       </motion.div>
@@ -33,15 +33,15 @@ export function CategoryPie({ data, currency }: CategoryPieProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.45 }}
-      className="card-surface p-5"
+      transition={{ delay: 0.2 }}
+      className="pf-card p-5"
     >
-      <h3 className="text-h3 font-medium text-text-primary font-heading mb-4">
+      <h3 className="text-[15px] font-bold text-text-primary font-heading mb-4">
         By Category
       </h3>
-      <div className="h-52 relative">
+      <div className="h-48 relative">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
@@ -53,7 +53,7 @@ export function CategoryPie({ data, currency }: CategoryPieProps) {
               innerRadius="60%"
               outerRadius="85%"
               paddingAngle={2}
-              animationDuration={800}
+              animationDuration={700}
             >
               {data.map((entry) => (
                 <Cell
@@ -68,11 +68,11 @@ export function CategoryPie({ data, currency }: CategoryPieProps) {
                 if (!active || !payload?.length) return null;
                 const entry = payload[0].payload;
                 return (
-                  <div className="bg-surface-2 border border-accent/30 rounded-xl px-3 py-2">
-                    <p className="text-caption text-text-muted capitalize">
+                  <div className="bg-white border border-border-subtle rounded-xl px-3 py-2 shadow-lg">
+                    <p className="text-[11px] font-semibold text-text-muted capitalize uppercase tracking-wider">
                       {getCategoryStyle(entry.category).label}
                     </p>
-                    <p className="text-sm font-mono-amount font-semibold">
+                    <p className="text-[14px] font-mono font-bold text-text-primary mt-0.5">
                       {formatMoney(entry.amount, currency)}
                     </p>
                   </div>
@@ -86,7 +86,7 @@ export function CategoryPie({ data, currency }: CategoryPieProps) {
             amount={total}
             currency={currency}
             compact
-            className="text-lg font-bold text-text-primary"
+            className="text-[17px] font-bold text-text-primary"
           />
         </div>
       </div>
@@ -96,10 +96,10 @@ export function CategoryPie({ data, currency }: CategoryPieProps) {
           return (
             <div
               key={entry.category}
-              className="flex items-center gap-1.5 text-caption text-text-muted"
+              className="flex items-center gap-1.5 text-[11px] text-text-muted font-medium"
             >
               <span
-                className="w-2 h-2 rounded-full"
+                className="w-2.5 h-2.5 rounded-full"
                 style={{ backgroundColor: style.color }}
               />
               <span>{style.label}</span>

@@ -53,8 +53,30 @@ export function ExpenseFilters({
   };
 
   return (
-    <div className="space-y-4 mb-6">
-      <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
+    <div className="space-y-3 mb-5">
+      {/* Month selector — Blinkit pill card style */}
+      <div className="flex items-center justify-between pf-card px-2 py-2">
+        <button
+          type="button"
+          onClick={handlePrevMonth}
+          className="w-10 h-10 rounded-xl flex items-center justify-center text-text-muted hover:bg-surface-2 hover:text-text-primary transition-colors"
+        >
+          <ChevronLeft size={20} />
+        </button>
+        <span className="text-[14px] font-bold text-text-primary font-heading">
+          {MONTHS[month - 1]} {year}
+        </span>
+        <button
+          type="button"
+          onClick={handleNextMonth}
+          className="w-10 h-10 rounded-xl flex items-center justify-center text-text-muted hover:bg-surface-2 hover:text-text-primary transition-colors"
+        >
+          <ChevronRight size={20} />
+        </button>
+      </div>
+
+      {/* Category chips — horizontal scroll */}
+      <div className="flex gap-2 overflow-x-auto no-scrollbar pb-0.5">
         {FILTER_CATEGORIES.map((cat) => {
           const isActive = cat === "all" ? !category : category === cat;
           return (
@@ -70,31 +92,12 @@ export function ExpenseFilters({
         })}
       </div>
 
-      <div className="flex items-center justify-between card-surface px-2 py-2">
-        <button
-          type="button"
-          onClick={handlePrevMonth}
-          className="w-10 h-10 rounded-lg flex items-center justify-center text-text-muted hover:bg-surface-2 transition-colors"
-        >
-          <ChevronLeft size={20} />
-        </button>
-        <span className="text-sm font-semibold text-text-primary font-heading">
-          {MONTHS[month - 1]} {year}
-        </span>
-        <button
-          type="button"
-          onClick={handleNextMonth}
-          className="w-10 h-10 rounded-lg flex items-center justify-center text-text-muted hover:bg-surface-2 transition-colors"
-        >
-          <ChevronRight size={20} />
-        </button>
-      </div>
-
+      {/* Payment mode chips */}
       <div className="flex gap-2 overflow-x-auto no-scrollbar">
         <button
           type="button"
           onClick={() => onPaymentModeChange("")}
-          className={cn("chip flex-shrink-0 text-xs", !paymentMode && "chip-active")}
+          className={cn("chip flex-shrink-0", !paymentMode && "chip-active")}
         >
           All modes
         </button>
@@ -104,7 +107,7 @@ export function ExpenseFilters({
             type="button"
             onClick={() => onPaymentModeChange(pm.value)}
             className={cn(
-              "chip flex-shrink-0 text-xs",
+              "chip flex-shrink-0",
               paymentMode === pm.value && "chip-active"
             )}
           >
